@@ -1,4 +1,5 @@
 import Blog from './components/Blog';
+import Search from './components/Search';
 import './App.css';
 import { useState } from 'react';
 
@@ -18,13 +19,13 @@ function App() {
           <button onClick={() => { handleClick('publications') }}>Publications</button>
           <button onClick={() => { handleClick('tutorial') }}>Tutorial</button>
           <button onClick={() => { handleClick('tools') }}>Tools</button>
-          <button onClick={() => { handleClick('submitData') }}>Submit Your Data</button>
+          <button onClick={() => { handleClick('submit_your_data') }}>Submit Your Data</button>
           <br />
           <br />
         </div>
       </div>
       {
-        section !== 'search' ? <Blog section={section} /> : "Search feature coming soon..."
+        section !== 'search' ? <Blog section={section} /> : <Search />
       }
     </div>
   );

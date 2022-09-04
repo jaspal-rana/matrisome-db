@@ -22,9 +22,12 @@ class BlogRepo:
     def delete_by_id(self, id):
         self.db.remove(doc_ids=[id])
 
+    def delete_all(self):
+        self.db.truncate()
+
 
 if __name__ == '__main__':
-    blog_repo = BlogRepo('test_db.json')
+    blog_repo = BlogRepo('blog_db.json')
     data = {
         "blog_name": 'hello',
         "blog_header": {

@@ -1,5 +1,4 @@
 import React from 'react'
-import { BlogData } from './TestInput'
 import { useState, useEffect } from 'react'
 
 const Blog = ({ section }) => {
@@ -47,7 +46,7 @@ const Blog = ({ section }) => {
                 break;
             case "link":
                 elem = <div style={{ marginLeft: '10px' }}>
-                    <a href={jsonObj.content} target='_blank'
+                    <a href={jsonObj.content} target='_blank' rel="noreferrer"
                         style={{ color: jsonObj.color, fontWeight: jsonObj.fontWeight, fontSize: jsonObj.fontSize }}>
                         {jsonObj.contentAlt ? jsonObj.contentAlt : jsonObj.content}
                     </a>
