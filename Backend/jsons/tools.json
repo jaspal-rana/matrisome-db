@@ -1,0 +1,13 @@
+{
+    "blog_name": "Tutorial",
+    "header": {
+        "type": "text",
+        "break_line": true,
+        "content": "MatrisomeDB Tutorial",
+        "color": "#0295cf",
+        "fontWeight": "bold",
+        "fontSize": "2em"
+    },
+    "type": "text",
+    "content": "More online MatrisomeDB tools coming soon..."
+}
