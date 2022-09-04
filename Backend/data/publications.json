@@ -1,9 +1,9 @@
 {
-    "blog_name": "Tutorial",
+    "blog_name": "Publications",
     "header": {
         "type": "text",
         "break_line": true,
-        "content": "MatrisomeDB Tutorial",
+        "content": "MatrisomeDB Publications",
         "color": "#0295cf",
         "fontWeight": "bold",
         "fontSize": "2em"

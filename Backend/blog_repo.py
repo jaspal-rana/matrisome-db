@@ -1,10 +1,11 @@
 from tinydb import TinyDB, Query
+import re
 
 
 class BlogRepo:
-    def __init__(self, db_name):
-        self.db_name = db_name
-        self.db = TinyDB(db_name)
+    def __init__(self):
+        self.db_name = 'blog_db.json'
+        self.db = TinyDB(self.db_name)
 
     def insert(self, collection_name, data):
         data['collection'] = collection_name
@@ -24,6 +25,32 @@ class BlogRepo:
 
     def delete_all(self):
         self.db.truncate()
+
+    def search(self, search_filters):
+        SearchQuery = Query()
+        matchVar = None
+        if 'exact_match' in search_filters:
+            for k, v in search_filters['exact_match'].items():
+                if matchVar is None:
+                    matchVar = SearchQuery[k] == v
+                else:
+                    matchVar = matchVar & (SearchQuery[k] == v)
+
+        if 'partial_match' in search_filters:
+            for field in search_filters['partial_match']['fields']:
+                if matchVar is None:
+                    matchVar = SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
+                else:
+                    matchVar = matchVar & SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
+
+        if matchVar:
+            docs = self.db.search(matchVar)
+        else:
+            docs = self.db.all()
+        for doc in docs:
+            doc['id'] = doc.doc_id
+
+        return docs
 
 
 if __name__ == '__main__':
