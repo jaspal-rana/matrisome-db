@@ -16,8 +16,25 @@ button:hover {
 }
 
 button:active {
-  box-shadow: 0 1px #666;
-  transform: translateY(4px);
+  box-shadow: 0.5px 0.5px #666;
+  transform: translateY(1px);
+  transform: translateX(1px);
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr {
+  margin: 0;
+}
+
+td, th {
+  font-size: small;
+  border: 0.5px solid darkgray;
+  margin: 0;
+  padding: 0.2em;
 }
 
 .App-logo {

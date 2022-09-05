@@ -23,9 +23,12 @@ def add_blog():
     blog_data = json.loads(request.data)
     blog_repo.insert(blog_type, blog_data)
 
-    return {
+    rsp = jsonify({
         'status': 'OK'
-    }
+    })
+    rsp.headers['Access-Control-Allow-Origin'] = '*'
+
+    return rsp
 
 
 @app.route("/blog/delete")
@@ -33,17 +36,23 @@ def delete_blog_by_id():
     id = int(request.args.get('id'))
     blog_repo.delete_by_id(id)
 
-    return {
+    rsp = jsonify({
         'status': 'OK'
-    }
+    })
+    rsp.headers['Access-Control-Allow-Origin'] = '*'
+
+    return rsp
 
 @app.route("/blog/delete-all")
 def delete_all():
     blog_repo.delete_all()
 
-    return {
+    rsp = jsonify({
         'status': 'OK'
-    }
+    })
+    rsp.headers['Access-Control-Allow-Origin'] = '*'
+
+    return rsp
 
 @app.route("/blog/initialise")
 def initialise():
@@ -79,19 +88,31 @@ def initialise():
                 json_data[columns[i]] = row[i]
             json_data_list.append(json_data)
 
-        # print(columns)
+        print([e for e in json_data_list if e['Gene'] == "COL1A1"])
 
         for i, part in enumerate(json_data_list):
             if i % 50 == 0:
                 print('data import progress : {}/{}'.format(i, min(data_limit, len(json_data_list))))
             blog_repo.insert(blog_type, part)
 
-    return {
+    rsp = jsonify({
         'status': 'OK'
-    }
+    })
+    rsp.headers['Access-Control-Allow-Origin'] = '*'
 
-@app.route("/blog/search", methods=['POST'])
+    return rsp
+
+@app.route("/blog/search", methods=['POST', 'OPTIONS'])
 def search_blog():
+    if request.method == 'OPTIONS':
+        rsp = jsonify({
+            'status': 'OK'
+        })
+        rsp.headers['Access-Control-Allow-Origin'] = '*'
+        rsp.headers['Access-Control-Allow-Headers'] = '*'
+
+        return rsp
+    
     search_filters = json.loads(request.data)
     rsp = blog_repo.search(search_filters)
 

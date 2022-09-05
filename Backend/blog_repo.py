@@ -28,20 +28,29 @@ class BlogRepo:
 
     def search(self, search_filters):
         SearchQuery = Query()
-        matchVar = None
+        exactMatchVar = None
         if 'exact_match' in search_filters:
             for k, v in search_filters['exact_match'].items():
-                if matchVar is None:
-                    matchVar = SearchQuery[k] == v
+                if exactMatchVar is None:
+                    exactMatchVar = SearchQuery[k] == v
                 else:
-                    matchVar = matchVar & (SearchQuery[k] == v)
+                    exactMatchVar = exactMatchVar & (SearchQuery[k] == v)
 
+        partialMatchVar = None
         if 'partial_match' in search_filters:
             for field in search_filters['partial_match']['fields']:
-                if matchVar is None:
-                    matchVar = SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
+                if partialMatchVar is None:
+                    partialMatchVar = SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
                 else:
-                    matchVar = matchVar & SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
+                    partialMatchVar = partialMatchVar | SearchQuery[field].matches(search_filters['partial_match']['search_term'], re.IGNORECASE)
+
+        matchVar = None
+        if exactMatchVar and partialMatchVar:
+            matchVar = exactMatchVar & partialMatchVar
+        elif exactMatchVar:
+            matchVar = exactMatchVar
+        elif partialMatchVar:
+            matchVar = partialMatchVar
 
         if matchVar:
             docs = self.db.search(matchVar)
