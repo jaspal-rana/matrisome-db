@@ -122,4 +122,4 @@ def search_blog():
     return rsp
 
 
-app.run(debug=True)
+app.run(host='0.0.0.0', threaded=True)
