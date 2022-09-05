@@ -1,19 +1,18 @@
 # 
 # Approximate time taken
-### Designing product specifications - 30 min
-### Converting product specifications to techincal requirements - 15 min
-### Backend blog page design & development - 90 min
-### Frontend blog page design & development - 60 min
-### Backend search design & development - 15 min
-### Frontend search page design & development - 20 min
-### Extracting data from http://matrisomedb.pepchem.org/ and storing in local database & implementing utilities related to this - 60 min
-### Overall testing - 30 min
-### Debugging & Issue fixes - 60 min
-## Total Development time - 380 min
-#
-### Infra deployment on Azure & registration of domain - 60 min
-### Documentation time - 30 min
-## Total time including infra setup - 470 min
+- Designing product specifications - 30 min
+- Converting product specifications to techincal requirements - 15 min
+- Backend blog page design & development - 90 min
+- Frontend blog page design & development - 60 min
+- Backend search design & development - 15 min
+- Frontend search page design & development - 20 min
+- Extracting data from http://matrisomedb.pepchem.org/ and storing in local database & implementing utilities related to this - 60 min
+- Overall testing - 30 min
+- Debugging & Issue fixes - 60 min
+### Total Development time - 380 min
+- Infra deployment on Azure & registration of domain - 60 min
+- Documentation time - 30 min
+### Total time including infra setup - 470 min
 #
 
 #
