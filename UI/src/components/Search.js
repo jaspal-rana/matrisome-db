@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('')
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResults, setSearchResults] = useState(null)
 
     const onInputChange = (e) => {
         e.preventDefault()
@@ -15,6 +15,12 @@ const Search = () => {
         e.preventDefault()
         fetchSearchResults()
 
+    }
+
+    const onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onSubmitHandle(e)
+        }
     }
 
     const fetchSearchResults = async () => {
@@ -58,47 +64,53 @@ const Search = () => {
                 paddingLeft: "1em",
                 paddingRight: "1em"
             }}
-                value={searchTerm} onChange={onInputChange} />
+                value={searchTerm} onChange={onInputChange} onKeyDown={onKeyPress} />
             <br />
             <button style={{
                 border: "1px solid #0295cf", borderRadius: "0.3em",
                 minWidth: "120px",
                 paddingTop: "0.5em", paddingBottom: "0.5em",
                 marginTop: "1em"
-            }} onClick={onSubmitHandle} >
+            }} onClick={onSubmitHandle}>
                 Search
             </button>
             {
-                searchResults && searchResults.length > 0 ?
-                    <table style={{ marginLeft: '30px', marginRight: '30px', marginTop: '1em' }}>
-                        <tr>
-                            <th>Gene</th>
-                            <th>UniProt</th>
-                            <th>Description</th>
-                            <th>Sample Type</th>
-                            <th>Tissue</th>
-                            <th>Species</th>
-                            <th>Reference</th>
-                        </tr>
-                        {
-                            searchResults.map((row) => {
-                                return <tr>
-                                    <td>{row['Gene']}</td>
-                                    <td>{row['UniProt'] ? row['UniProt'] : row['Uniprot']}</td>
-                                    <td>{row['Description']}</td>
-                                    <td>{row['Sample_type']}</td>
-                                    <td>{row['Tissue']}</td>
-                                    <td>{row['Species']}</td>
-                                    <td>{'https://doi.org/' + row['Reference']}</td>
-                                </tr>
-                            })
-                        }
+                searchResults ?
+                    (
+                        searchResults.length > 0 ?
+                            <div style={{ marginLeft: '30px', marginRight: '30px', margin: '0' }}>
+                                <table style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '1em' }}>
+                                    <tr>
+                                        <th>Gene</th>
+                                        <th>UniProt</th>
+                                        <th>Description</th>
+                                        <th>Sample Type</th>
+                                        <th>Tissue</th>
+                                        <th>Species</th>
+                                        <th>Reference</th>
+                                    </tr>
+                                    {
+                                        searchResults.map((row) => {
+                                            return <tr>
+                                                <td>{row['Gene']}</td>
+                                                <td>{row['UniProt'] ? row['UniProt'] : row['Uniprot']}</td>
+                                                <td>{row['Description']}</td>
+                                                <td>{row['Sample_type']}</td>
+                                                <td>{row['Tissue']}</td>
+                                                <td>{row['Species']}</td>
+                                                <td>{'https://doi.org/' + row['Reference']}</td>
+                                            </tr>
+                                        })
+                                    }
 
-                    </table>
+                                </table>
+                            </div>
+                            :
+                            <p>No matches found</p>
+                    )
                     :
                     null
             }
-
         </div>
     )
 }
