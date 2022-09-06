@@ -6,7 +6,7 @@ const Blog = ({ section }) => {
 
     const fetchBlogData = async (section) => {
         try {
-            const blogFetchAPI = "http://localhost:5000/blog/fetch-all?blog-type="
+            const blogFetchAPI = "https://mdb-api.jrj.app/blog/fetch-all?blog-type="
 
             let rsp = await fetch(blogFetchAPI + section)
             rsp = await rsp.json()

@@ -19,7 +19,7 @@ const Search = () => {
 
     const fetchSearchResults = async () => {
         try {
-            const searchAPI = "http://localhost:5000/blog/search"
+            const searchAPI = "https://mdb-api.jrj.app/blog/search"
             const requestData = {
                 "partial_match": {
                     "fields": ["Description", "Tissue"],
